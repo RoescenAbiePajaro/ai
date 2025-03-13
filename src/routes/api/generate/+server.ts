@@ -6,7 +6,7 @@ export const GET: RequestHandler = async () => {
 
   const dataofMasterUser = {
     name: "Roescen",
-    course: "BSCS",
+    course: "BS Computer Science",
     hobbies: ["Draw 2D arts", "Play cozy games"],
     favoriteColor: "Black",
     age: 22,
