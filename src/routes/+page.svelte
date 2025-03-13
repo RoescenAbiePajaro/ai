@@ -14,7 +14,6 @@
 
 <div class="p-4">
     <div class = "rounded p-4 bg-blue-200 shadow-md">
-        {@html md.render(response)}
-
+        {md.render(response)}
     </div>
 </div>
