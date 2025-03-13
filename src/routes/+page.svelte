@@ -18,7 +18,6 @@
     </div>
 </div> -->
 
-<!-- +page.svelte -->
 <script>
   import { onMount } from "svelte";
 
@@ -29,7 +28,6 @@
   let inputMessage = "";
   let darkMode = false;
 
-  // Load theme from localStorage
   onMount(() => {
     darkMode = localStorage.getItem("theme") === "dark";
     updateTheme();
@@ -49,11 +47,11 @@
     if (!inputMessage.trim()) return;
 
     const userMessage = inputMessage;
-    inputMessage = ""; // Clear input immediately for better UX
+    inputMessage = "";
     messages = [...messages, { text: userMessage, type: "user" }];
 
     try {
-      const res = await fetch("/api2/generate", { // ✅ Fixed API path
+      const res = await fetch("/api2/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -83,14 +81,17 @@
     {/each}
   </div>
 
-  <div class="input-area">
+  <div class="input-area border rounded-2xl flex items-center p-2 space-x-2">
     <input
       type="text"
       bind:value={inputMessage}
       on:keydown={(e) => e.key === "Enter" && sendMessage()}
-      placeholder="Type a message..."
+      placeholder="Say Hello..."
+      class="flex-1 p-2 outline-none placeholder-gray"
     />
-    <button on:click={sendMessage}>Send</button>
+    <button on:click={sendMessage} class="px-4 py-2 rounded-lg bg-blue-500 text-white">
+      Send
+    </button>
   </div>
 </main>
 
@@ -116,7 +117,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    transition: all 0.3s ease;
   }
 
   .theme-toggle {
@@ -126,6 +126,11 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 0.5rem;
+    color: gray;
+  }
+
+  :global(body.dark) .theme-toggle {
+    color: white;
   }
 
   .chatbox {
@@ -152,7 +157,6 @@
     border-radius: 20px;
     max-width: 75%;
     word-wrap: break-word;
-    transition: all 0.2s ease;
   }
 
   .user-message {
@@ -184,6 +188,15 @@
     border: none;
     outline: none;
     font-size: 1rem;
+    background: none;
+  }
+
+  input::placeholder {
+    color: gray;
+  }
+
+  :global(body.dark) input::placeholder {
+    color: white;
   }
 
   button {

@@ -65,6 +65,8 @@ export const POST: RequestHandler = async ({ request }) => {
     } else if (message.toLowerCase() === "who is your creator?") {
       responseText = `My creator is ${dataofMasterUser.name}. She is a ${dataofMasterUser.age}-year-old ${dataofMasterUser.gender} studying ${dataofMasterUser.course}. She enjoys ${dataofMasterUser.hobbies.join(", ")} and loves the color ${dataofMasterUser.favoriteColor}.`;
     } else {
+
+      
       const chat = await ollama.chat({
         model: "deepseek-r1:1.5b", // Ensure this model exists in Ollama
         messages: [
