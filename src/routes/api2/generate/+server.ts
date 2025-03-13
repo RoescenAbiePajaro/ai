@@ -62,7 +62,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     if (message.toLowerCase() === "hello") {
       responseText = "Hello! How may I assist you?";
-    } else if (message.toLowerCase() === "who is your creator?") {
+    } else if (message.toLowerCase() === "who is your creator") {
       responseText = `My creator is ${dataofMasterUser.name}. She is a ${dataofMasterUser.age}-year-old ${dataofMasterUser.gender} studying ${dataofMasterUser.course}. She enjoys ${dataofMasterUser.hobbies.join(", ")} and loves the color ${dataofMasterUser.favoriteColor}.`;
     } else {
 
@@ -74,7 +74,7 @@ export const POST: RequestHandler = async ({ request }) => {
             role: "system",
             content: `Here is the information of your master user: ${JSON.stringify(
               dataofMasterUser
-            )}. Respond only based on the creator's data.`,
+            )}. Respond only based on the creator's data.Dont send to much`,
           },
           { role: "user", content: message },
         ],
