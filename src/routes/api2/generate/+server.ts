@@ -8,6 +8,10 @@ export const GET: RequestHandler = async () => {
     name: "Roescen",
     course: "BSCS",
     hobbies: ["Draw 2d arts","Play cozy games"],
+    favoriteColor: "Black",
+    age: 22,
+    gender: "Female",
+    userTypes: "Master User",
   };
 
   const chat = await ollama.chat({
