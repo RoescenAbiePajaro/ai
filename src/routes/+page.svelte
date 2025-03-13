@@ -6,7 +6,7 @@
   const md = new MarkdownIt();
 
   onMount(async () => {
-    const request = await fetch("https://localhost:5173/api2/generate")
+    const request = await fetch("http://localhost:5173/api2/generate")
       const apiResponse = await request.json ();
       response = apiResponse?.message?.content || ""
   });
