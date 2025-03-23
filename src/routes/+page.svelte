@@ -1,48 +1,32 @@
-<!-- <script lang="ts">
-  import { onMount } from 'svelte';
-  import MarkdownIt from 'markdown-it';
-
-  let response = $state("")
-  const md = new MarkdownIt();
-
-  onMount(async () => {
-    const request = await fetch("http://localhost:5173/api2/generate")
-      const apiResponse = await request.json ();
-      response = apiResponse?.message?.content || ""
-  });
-  </script>
-
-<div class="p-4">
-    <div class = "rounded p-4 bg-blue-200 shadow-md">
-        {md.render(response)}
-    </div>
-</div> -->
-
 <script>
   import { onMount } from "svelte";
 
   /**
-	 * @type {any[]}
-	 */
+   * @type {any[]}
+   */
   let messages = [];
   let inputMessage = "";
   let darkMode = false;
 
+  // Load theme from localStorage on mount
   onMount(() => {
     darkMode = localStorage.getItem("theme") === "dark";
     updateTheme();
   });
 
+  // Toggle between dark and light mode
   function toggleTheme() {
     darkMode = !darkMode;
     localStorage.setItem("theme", darkMode ? "dark" : "light");
     updateTheme();
   }
 
+  // Update the theme class on the body
   function updateTheme() {
     document.body.classList.toggle("dark", darkMode);
   }
 
+  // Send a message to the server
   async function sendMessage() {
     if (!inputMessage.trim()) return;
 
@@ -51,7 +35,7 @@
     messages = [...messages, { text: userMessage, type: "user" }];
 
     try {
-      const res = await fetch("/api2/generate", {
+      const res = await fetch("http://localhost:5173/api2/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -69,10 +53,12 @@
 </script>
 
 <main>
+  <!-- Theme toggle button -->
   <button class="theme-toggle" on:click={toggleTheme}>
     {darkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
   </button>
 
+  <!-- Chatbox -->
   <div class="chatbox">
     {#each messages as msg}
       <div class={msg.type === "user" ? "user-message" : "bot-message"}>
@@ -81,12 +67,13 @@
     {/each}
   </div>
 
+  <!-- Input area -->
   <div class="input-area border rounded-2xl flex items-center p-2 space-x-2">
     <input
       type="text"
       bind:value={inputMessage}
       on:keydown={(e) => e.key === "Enter" && sendMessage()}
-      placeholder="Say Hello..."
+      placeholder="Type Here..."
       class="flex-1 p-2 outline-none placeholder-gray"
     />
     <button on:click={sendMessage} class="px-4 py-2 rounded-lg bg-blue-500 text-white">
